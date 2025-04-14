@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <title>字母组合表格</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+       .button-container {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            padding: 10px 0;
+            z-index: 1;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="p-4">
+    <h1 class="text-2xl font-bold mb-4">字母组合与单词表格</h1>
+    <div class="button-container">
+        <button id="toggleWords" class="bg-blue-500 text-white px-4 py-2 rounded mb-4">切换到单词</button>
+        <button id="toggleTranslation" class="bg-green-500 text-white px-4 py-2 rounded mb-4">切换到翻译</button>
+        <button id="togglePhonetic" class="bg-yellow-500 text-white px-4 py-2 rounded mb-4">切换到音标</button>
+        <input type="text" id="rowRangeInput" placeholder="输入行号范围，如 10-15,20-25" class="border border-gray-300 px-2 py-1 rounded mb-4">
+        <button id="toggleRows" class="bg-purple-500 text-white px-4 py-2 rounded mb-4">隐藏/显示指定行</button>
+        <button id="toggleColumns" class="bg-orange-500 text-white px-4 py-2 rounded mb-4">隐藏/显示列</button>
+    </div>
+    <table id="letterTable">
+        <thead>
+            <tr>
+                <th>辅音</th>
+                <th>a</th>
+                <th>e</th>
+                <th>i</th>
+                <th>o</th>
+                <th>u</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>p</td>
+                <td>pa</td>
+                <td>pe</td>
+                <td>pi</td>
+                <td>po</td>
+                <td>pu</td>
+            </tr>
+            <tr>
+                <td>t</td>
+                <td>ta</td>
+                <td>te</td>
+                <td>ti</td>
+                <td>to</td>
+                <td>tu</td>
+            </tr>
+            <tr>
+                <td>k</td>
+                <td>ka</td>
+                <td>ke</td>
+                <td>ki</td>
+                <td>ko</td>
+                <td>ku</td>
+            </tr>
+            <tr>
+                <td>s</td>
+                <td>sa</td>
+                <td>se</td>
+                <td>si</td>
+                <td>so</td>
+                <td>su</td>
+            </tr>
+            <tr>
+                <td>f</td>
+                <td>fa</td>
+                <td>fe</td>
+                <td>fi</td>
+                <td>fo</td>
+                <td>fu</td>
+            </tr>
+            <tr>
+                <td>h</td>
+                <td>ha</td>
+                <td>he</td>
+                <td>hi</td>
+                <td>ho</td>
+                <td>hu</td>
+            </tr>
+            <tr>
+                <td>b</td>
+                <td>ba</td>
+                <td>be</td>
+                <td>bi</td>
+                <td>bo</td>
+                <td>bu</td>
+            </tr>
+            <tr>
+                <td>d</td>
+                <td>da</td>
+                <td>de</td>
+                <td>di</td>
+                <td>do</td>
+                <td>du</td>
+            </tr>
+            <tr>
+                <td>g</td>
+                <td>ga</td>
+                <td>ge</td>
+                <td>gi</td>
+                <td>go</td>
+                <td>gu</td>
+            </tr>
+            <tr>
+                <td>z</td>
+                <td>za</td>
+                <td>ze</td>
+                <td>zi</td>
+                <td>zo</td>
+                <td>zu</td>
+            </tr>
+            <tr>
+                <td>v</td>
+                <td>va</td>
+                <td>ve</td>
+                <td>vi</td>
+                <td>vo</td>
+                <td>vu</td>
+            </tr>
+            <tr>
+                <td>c</td>
+                <td>ca</td>
+                <td>ce</td>
+                <td>ci</td>
+                <td>co</td>
+                <td>cu</td>
+            </tr>
+            <tr>
+                <td>ph</td>
+                <td>pha</td>
+                <td>phe</td>
+                <td>phi</td>
+                <td>pho</td>
+                <td>phu</td>
+            </tr>
+            <tr>
+                <td>m</td>
+                <td>ma</td>
+                <td>me</td>
+                <td>mi</td>
+                <td>mo</td>
+                <td>mu</td>
+            </tr>
+            <tr>
+                <td>n</td>
+                <td>na</td>
+                <td>ne</td>
+                <td>ni</td>
+                <td>no</td>
+                <td>nu</td>
+            </tr>
+            <tr>
+                <td>w</td>
+                <td>wa</td>
+                <td>we</td>
+                <td>wi</td>
+                <td>wo</td>
+                <td>wu</td>
+            </tr>
+            <tr>
+                <td>y</td>
+                <td>ya</td>
+                <td>ye</td>
+                <td>yi</td>
+                <td>yo</td>
+                <td>yu</td>
+            </tr>
+            <tr>
+                <td>l</td>
+                <td>la</td>
+                <td>le</td>
+                <td>li</td>
+                <td>lo</td>
+                <td>lu</td>
+            </tr>
+            <tr>
+                <td>r</td>
+                <td>ra</td>
+                <td>re</td>
+                <td>ri</td>
+                <td>ro</td>
+                <td>ru</td>
+            </tr>
+            <tr>
+                <td>tr</td>
+                <td>tra</td>
+                <td>tre</td>
+                <td>tri</td>
+                <td>tro</td>
+                <td>tru</td>
+            </tr>
+            <tr>
+                <td>th</td>
+                <td>tha</td>
+                <td>the</td>
+                <td>thi</td>
+                <td>tho</td>
+                <td>thu</td>
+            </tr>
+            <tr>
+                <td>ch</td>
+                <td>cha</td>
+                <td>che</td>
+                <td>chi</td>
+                <td>cho</td>
+                <td>chu</td>
+            </tr>
+            <tr>
+                <td>sh</td>
+                <td>sha</td>
+                <td>she</td>
+                <td>shi</td>
+                <td>sho</td>
+                <td>shu</td>
+            </tr>
+            <tr>
+                <td>wh</td>
+                <td>wha</td>
+                <td>whe</td>
+                <td>whi</td>
+                <td>who</td>
+                <td>whu</td>
+            </tr>
+            <tr>
+                <td>j</td>
+                <td>ja</td>
+                <td>je</td>
+                <td>ji</td>
+                <td>jo</td>
+                <td>ju</td>
+            </tr>
+            <tr>
+                <td>qu</td>
+                <td>qua</td>
+                <td>que</td>
+                <td>qui</td>
+                <td>quo</td>
+                <td>quu</td>
+            </tr>
+            <tr>
+                <td>ex</td>
+                <td>exa</td>
+                <td>exe</td>
+                <td>exi</td>
+                <td>exo</td>
+                <td>exu</td>
+            </tr>
+            <tr>
+                <td>a</td>
+                <td>aa</td>
+                <td>ae</td>
+                <td>ai</td>
+                <td>ao</td>
+                <td>au</td>
+            </tr>
+            <tr>
+                <td>e</td>
+                <td>ea</td>
+                <td>ee</td>
+                <td>ei</td>
+                <td>eo</td>
+                <td>eu</td>
+            </tr>
+            <tr>
+                <td>i</td>
+                <td>ia</td>
+                <td>ie</td>
+                <td>ii</td>
+                <td>io</td>
+                <td>iu</td>
+            </tr>
+            <tr>
+                <td>o</td>
+                <td>oa</td>
+                <td>oe</td>
+                <td>oi</td>
+                <td>oo</td>
+                <td>ou</td>
+            </tr>
+            <tr>
+                <td>u</td>
+                <td>ua</td>
+                <td>ue</td>
+                <td>ui</td>
+                <td>uo</td>
+                <td>uu</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        const toggleWordsButton = document.getElementById('toggleWords');
+        const toggleTranslationButton = document.getElementById('toggleTranslation');
+        const togglePhoneticButton = document.getElementById('togglePhonetic');
+        const toggleRowsButton = document.getElementById('toggleRows');
+        const toggleColumnsButton = document.getElementById('toggleColumns');
+        const rowRangeInput = document.getElementById('rowRangeInput');
+        const table = document.getElementById('letterTable');
+        let isShowingWords = false;
+        let isShowingTranslation = false;
+        let isShowingPhonetic = false;
+        const originalLetters = [];
+
+        const cells = table.querySelectorAll('td:not(:first-child)');
+        cells.forEach(cell => {
+            originalLetters.push(cell.textContent.trim());
+        });
+
+        const letterToWordMap = {
+            'pa': { word: 'papa', phonetic: '/pəˈpɑː/', translation: '爸爸' },
+            'pe': { word: 'pen', phonetic: '/pen/', translation: '钢笔' },
+            'pi': { word: 'pig', phonetic: '/pɪɡ/', translation: '猪' },
+            'po': { word: 'pot', phonetic: '/pɒt/', translation: '锅' },
+            'pu': { word: 'pup', phonetic: '/pʌp/', translation: '小狗' },
+            'ta': { word: 'tap', phonetic: '/tæp/', translation: '水龙头' },
+            'te': { word: 'ten', phonetic: '/ten/', translation: '十' },
+            'ti': { word: 'tip', phonetic: '/tɪp/', translation: '尖端' },
+            'to': { word: 'top', phonetic: '/tɒp/', translation: '顶部' },
+            'tu': { word: 'tug', phonetic: '/tʌɡ/', translation: '猛拉' },
+            'ka': { word: 'kat', phonetic: '/kæt/', translation: '猫（非正式）' },
+            'ke': { word: 'key', phonetic: '/kiː/', translation: '钥匙' },
+            'ki': { word: 'kid', phonetic: '/kɪd/', translation: '小孩' },
+            'ko': { word: 'cot', phonetic: '/kɒt/', translation: '简易床' },
+            'ku': { word: 'cup', phonetic: '/kʌp/', translation: '杯子' },
+            'sa': { word: 'sad', phonetic: '/sæd/', translation: '悲伤的' },
+            'se': { word: 'set', phonetic: '/set/', translation: '放置' },
+            'si': { word: 'sit', phonetic: '/sɪt/', translation: '坐' },
+            'so': { word: 'son', phonetic: '/sʌn/', translation: '儿子' },
+            'su': { word: 'sun', phonetic: '/sʌn/', translation: '太阳' },
+            'fa': { word: 'fan', phonetic: '/fæn/', translation: '风扇' },
+            'fe': { word: 'fed', phonetic: '/fed/', translation: '喂养（feed的过去式和过去分词）' },
+            'fi': { word: 'fin', phonetic: '/fɪn/', translation: '鳍' },
+            'fo': { word: 'fox', phonetic: '/fɒks/', translation: '狐狸' },
+            'fu': { word: 'fun', phonetic: '/fʌn/', translation: '乐趣' },
+            'ha': { word: 'hat', phonetic: '/hæt/', translation: '帽子' },
+            'he': { word: 'hen', phonetic: '/hen/', translation: '母鸡' },
+            'hi': { word: 'hip', phonetic: '/hɪp/', translation: '臀部' },
+            'ho': { word: 'hot', phonetic: '/hɒt/', translation: '热的' },
+            'hu': { word: 'hut', phonetic: '/hʌt/', translation: '小屋' },
+            'ca': { word: 'cat', phonetic: '/kæt/', translation: '猫' },
+            'ce': { word: 'cel', phonetic: '/sel/', translation: '蜂窝；单元' },
+            'ci': { word: 'cic', phonetic: '/sɪk/', translation: '循环（非正式）' },
+            'co': { word: 'cot', phonetic: '/kɒt/', translation: '简易床' },
+            'cu': { word: 'cup', phonetic: '/kʌp/', translation: '杯子' },
+            'ba': { word: 'bat', phonetic: '/bæt/', translation: '蝙蝠' },
+            'be': { word: 'bed', phonetic: '/bed/', translation: '床' },
+            'bi': { word: 'bin', phonetic: '/bɪn/', translation: '垃圾桶' },
+            'bo': { word: 'box', phonetic: '/bɒks/', translation: '盒子' },
+            'bu': { word: 'bus', phonetic: '/bʌs/', translation: '公共汽车' },
+            'da': { word: 'dad', phonetic: '/dæd/', translation: '爸爸' },
+            'de': { word: 'den', phonetic: '/den/', translation: '兽穴' },
+            'di': { word: 'dig', phonetic: '/dɪɡ/', translation: '挖掘' },
+            'do': { word: 'dog', phonetic: '/dɒɡ/', translation: '狗' },
+            'du': { word: 'dug', phonetic: '/dʌɡ/', translation: '挖（dig的过去式和过去分词）' },
+            'ga': { word: 'gap', phonetic: '/ɡæp/', translation: '缺口' },
+            'ge': { word: 'gel', phonetic: '/dʒel/', translation: '凝胶' },
+            'gi': { word: 'gin', phonetic: '/dʒɪn/', translation: '杜松子酒' },
+            'go': { word: 'got', phonetic: '/ɡɒt/', translation: '得到（get的过去式和过去分词）' },
+            'gu': { word: 'gut', phonetic: '/ɡʌt/', translation: '内脏' },
+            'za': { word: 'zap', phonetic: '/zæp/', translation: '迅速移动' },
+            'ze': { word: 'zed', phonetic: '/zed/', translation: '字母Z' },
+            'zi': { word: 'zit', phonetic: '/zɪt/', translation: '青春痘' },
+            'zo': { word: 'zoo', phonetic: '/zuː/', translation: '动物园' },
+            'zu': { word: 'zup', phonetic: '/zʌp/', translation: '怎么啦（非正式）' },
+            'va': { word: 'van', phonetic: '/væn/', translation: '货车' },
+            've': { word: 'vet', phonetic: '/vet/', translation: '兽医' },
+            'vi': { word: 'viz', phonetic: '/vɪz/', translation: '即；也就是' },
+            'vo': { word: 'vow', phonetic: '/vaʊ/', translation: '誓言' },
+            'vu': { word: 'vum', phonetic: '/vʌm/', translation: '（拟声）嗡嗡声' },
+            'pha': { word: 'phat', phonetic: '/fæt/', translation: '酷的；棒的（俚语）' },
+            'phe': { word: 'phet', phonetic: '/fet/', translation: '（无常用释义）' },
+            'phi': { word: 'phin', phonetic: '/fɪn/', translation: '鳍' },
+            'pho': { word: 'pho', phonetic: '/fəʊ/', translation: '越南河粉' },
+            'phu': { word: 'phut', phonetic: '/fʌt/', translation: '（拟声）砰的一声' },
+            'ma': { word: 'map', phonetic: '/mæp/', translation: '地图' },
+            'me': { word: 'men', phonetic: '/men/', translation: '男人（man的复数）' },
+            'mi': { word: 'mix', phonetic: '/mɪks/', translation: '混合' },
+            'mo': { word: 'mom', phonetic: '/mɒm/', translation: '妈妈' },
+            'mu': { word: 'mug', phonetic: '/mʌɡ/', translation: '杯子' },
+            'na': { word: 'nap', phonetic: '/næp/', translation: '小睡' },
+            'ne': { word: 'net', phonetic: '/net/', translation: '网' },
+            'ni': { word: 'nit', phonetic: '/nɪt/', translation: '虱卵' },
+            'no': { word: 'not', phonetic: '/nɒt/', translation: '不' },
+            'nu': { word: 'nut', phonetic: '/nʌt/', translation: '坚果' },
+            'wa': { word: 'wag', phonetic: '/wæɡ/', translation: '摇摆' },
+            'we': { word: 'web', phonetic: '/web/', translation: '网' },
+            'wi': { word: 'win', phonetic: '/wɪn/', translation: '赢' },
+            'wo': { word: 'wok', phonetic: '/wɒk/', translation: '炒锅' },
+            'wu': { word: 'wud', phonetic: '/wʌd/', translation: '（would的方言发音）' },
+            'ya': { word: 'yam', phonetic: '/jæm/', translation: '山药' },
+            'ye': { word: 'yes', phonetic: '/jes/', translation: '是的' },
+            'yi': { word: 'yip', phonetic: '/jɪp/', translation: '尖叫' },
+            'yo': { word: 'yog', phonetic: '/jɒɡ/', translation: '瑜伽（非正式）' },
+            'yu': { word: 'yum', phonetic: '/jʌm/', translation: '好吃的（感叹词）' },
+            'la': { word: 'lap', phonetic: '/læp/', translation: '大腿' },
+            'le': { word: 'leg', phonetic: '/leɡ/', translation: '腿' },
+            'li': { word: 'lid', phonetic: '/lɪd/', translation: '盖子' },
+            'lo': { word: 'log', phonetic: '/lɒɡ/', translation: '原木' },
+            'lu': { word: 'lug', phonetic: '/lʌɡ/', translation: '用力拖' },
+            'ra': { word: 'rat', phonetic: '/ræt/', translation: '老鼠' },
+            're': { word: 'red', phonetic: '/red/', translation: '红色的' },
+            'ri': { word: 'rip', phonetic: '/rɪp/', translation: '撕裂' },
+            'ro': { word: 'rot', phonetic: '/rɒt/', translation: '腐烂' },
+            'ru': { word: 'rug', phonetic: '/rʌɡ/', translation: '小地毯' },
+            'tra': { word: 'trap', phonetic: '/træp/', translation: '陷阱' },
+            'tre': { word: 'tree', phonetic: '/triː/', translation: '树' },
+            'tri': { word: 'trip', phonetic: '/trɪp/', translation: '旅行' },
+            'tro': { word: 'trot', phonetic: '/trɒt/', translation: '小跑' },
+            'tru': { word: 'trug', phonetic: '/trʌɡ/', translation: '浅底木筐' },
+            'tha': { word: 'that', phonetic: '/ðæt/', translation: '那个' },
+            'the': { word: 'thee', phonetic: '/ðiː/', translation: '你（宾格）' },
+            'thi': { word: 'thin', phonetic: '/θɪn/', translation: '瘦的' },
+            'tho': { word: 'thou', phonetic: '/ðaʊ/', translation: '你（主格，古英语）' },
+            'thu': { word: 'thud', phonetic: '/θʌd/', translation: '砰的一声' },
+            'cha': { word: 'chat', phonetic: '/tʃæt/', translation: '聊天' },
+            'che': { word: 'chew', phonetic: '/tʃuː/', translation: '咀嚼' },
+            'chi': { word: 'chip', phonetic: '/tʃɪp/', translation: '芯片' },
+            'cho': { word: 'chop', phonetic: '/tʃɒp/', translation: '砍' },
+            'chu': { word: 'chug', phonetic: '/tʃʌɡ/', translation: '突突响着行驶' },
+            'sha': { word: 'shag', phonetic: '/ʃæɡ/', translation: '粗毛；蓬乱的头发' },
+            'she': { word: 'she', phonetic: '/ʃiː/', translation: '她' },
+            'shi': { word: 'ship', phonetic: '/ʃɪp/', translation: '船' },
+            'sho': { word: 'shop', phonetic: '/ʃɒp/', translation: '商店' },
+            'shu': { word: 'shun', phonetic: '/ʃʌn/', translation: '避开' },
+            'wha': { word: 'what', phonetic: '/wɒt/', translation: '什么' },
+            'whe': { word: 'when', phonetic: '/wen/', translation: '什么时候' },
+            'whi': { word: 'whig', phonetic: '/wɪɡ/', translation: '辉格党人' },
+            'who': { word: 'who', phonetic: '/huː/', translation: '谁' },
+            'whu': { word: 'whup', phonetic: '/wʌp/', translation: '鞭打' },
+            'ja': { word: 'jar', phonetic: '/dʒɑː(r)/', translation: '罐子' },
+            'je': { word: 'jet', phonetic: '/dʒet/', translation: '喷气式飞机' },
+            'ji': { word: 'jig', phonetic: '/dʒɪɡ/', translation: '吉格舞' },
+            'jo': { word: 'job', phonetic: '/dʒəʊb/', translation: '工作' },
+            'ju': { word: 'jug', phonetic: '/dʒʌɡ/', translation: '水壶' },
+            'qua': { word: 'quat', phonetic: '/kwɒt/', translation: '夸脱（液量单位）' },
+            'que': { word: 'quey', phonetic: '/kweɪ/', translation: '小母牛' },
+            'qui': { word: 'quid', phonetic: '/kwɪd/', translation: '一英镑；一美元' },
+            'quo': { word: 'quod', phonetic: '/kwɒd/', translation: '监狱（非正式）' },
+            'quu': { word: 'quux', phonetic: '/kwʌks/', translation: '（计算机术语）无实际意义的变量名' },
+            'exa': { word: 'exam', phonetic: '/ɪɡˈzæm/', translation: '考试' },
+            'exe': { word: 'exec', phonetic: '/ɪɡˈzek/', translation: '执行官' },
+            'exi': { word: 'exit', phonetic: '/ˈeksɪt/', translation: '出口' },
+            'exo': { word: 'exot', phonetic: '/ˈeksɒt/', translation: '（无常用释义）' },
+            'exu': { word: 'exul', phonetic: '/ɪɡˈzʌl/', translation: '（无常用释义）' },
+            'aa': { word: 'aard', phonetic: '/ɑːd/', translation: '（无常用释义）' },
+            'ae': { word: 'aero', phonetic: '/ˈeərəʊ/', translation: '航空的' },
+            'ai': { word: 'aisle', phonetic: '/aɪl/', translation: '过道' },
+            'ao': { word: 'aort', phonetic: '/eɪɔːt/', translation: '（无常用释义）' },
+            'au': { word: 'aunt', phonetic: '/ɑːnt/', translation: '阿姨' },
+            'ea': { word: 'ear', phonetic: '/ɪə(r)/', translation: '耳朵' },
+            'ee': { word: 'eel', phonetic: '/iːl/', translation: '鳗鱼' },
+            'ei': { word: 'eide', phonetic: '/eɪd/', translation: '（无常用释义）' },
+            'eo': { word: 'eon', phonetic: '/iːɒn/', translation: '永世' },
+            'eu': { word: 'euch', phonetic: '/juːk/', translation: '（无常用释义）' },
+            'ia': { word: 'ibia', phonetic: '/ˈɪbiə/', translation: '（解剖学）胫骨' },
+            'ie': { word: 'pie', phonetic: '/paɪ/', translation: '馅饼' },
+            'ii': { word: '\\', phonetic: '', translation: '' },
+            'io': { word: 'ion', phonetic: '/ˈaɪən/', translation: '离子' },
+            'iu': { word: '\\', phonetic: '', translation: '' },
+            'oa': { word: 'oar', phonetic: '/ɔː(r)/', translation: '桨' },
+            'oe': { word: 'oes', phonetic: '/əʊz/', translation: '（无常用释义）' },
+            'oi': { word: 'oink', phonetic: '/ɔɪŋk/', translation: '猪叫声' },
+            'oo': { word: 'book', phonetic: '/bʊk/', translation: '书' },
+            'ou': { word: 'out', phonetic: '/aʊt/', translation: '外面' },
+            'ua': { word: '\\', phonetic: '', translation: '' },
+            'ue': { word: 'blue', phonetic: '/bluː/', translation: '蓝色的' },
+            'ui': { word: 'ruit', phonetic: '', translation: '' },
+            'uo': { word: '\\', phonetic: '', translation: '' },
+            'uu': { word: '\\', phonetic: '', translation: '' }
+        };
+
+        toggleWordsButton.addEventListener('click', () => {
+            isShowingWords = !isShowingWords;
+            isShowingTranslation = false;
+            isShowingPhonetic = false;
+            cells.forEach((cell, index) => {
+                const letter = originalLetters[index];
+                if (isShowingWords) {
+                    const wordInfo = letterToWordMap[letter];
+                    cell.textContent = wordInfo ? wordInfo.word : '\\';
+                } else {
+                    cell.textContent = letter;
+                }
+            });
+            toggleWordsButton.textContent = isShowingWords ? '切换到字母组合' : '切换到单词';
+        });
+
+        toggleTranslationButton.addEventListener('click', () => {
+            isShowingTranslation = !isShowingTranslation;
+            isShowingWords = false;
+            isShowingPhonetic = false;
+            cells.forEach((cell, index) => {
+                const letter = originalLetters[index];
+                if (isShowingTranslation) {
+                    const wordInfo = letterToWordMap[letter];
+                    cell.textContent = wordInfo ? wordInfo.translation : '\\';
+                } else {
+                    cell.textContent = letter;
+                }
+            });
+            toggleTranslationButton.textContent = isShowingTranslation ? '切换到字母组合' : '切换到翻译';
+        });
+
+        togglePhoneticButton.addEventListener('click', () => {
+            isShowingPhonetic = !isShowingPhonetic;
+            isShowingWords = false;
+            isShowingTranslation = false;
+            cells.forEach((cell, index) => {
+                const letter = originalLetters[index];
+                if (isShowingPhonetic) {
+                    const wordInfo = letterToWordMap[letter];
+                    cell.textContent = wordInfo ? wordInfo.phonetic : '\\';
+                } else {
+                    cell.textContent = letter;
+                }
+            });
+            togglePhoneticButton.textContent = isShowingPhonetic ? '切换到字母组合' : '切换到音标';
+        });
+
+        toggleRowsButton.addEventListener('click', () => {
+            const rangeInput = rowRangeInput.value;
+            const ranges = rangeInput.split(',');
+            const rows = table.querySelectorAll('tbody tr');
+
+            rows.forEach(row => row.style.display = 'table-row');
+
+            ranges.forEach(range => {
+                const [start, end] = range.split('-').map(Number);
+                if (!isNaN(start) && (!end || !isNaN(end))) {
+                    const endRow = end || start;
+                    for (let i = start - 1; i < endRow; i++) {
+                        if (rows[i]) {
+                            rows[i].style.display = 'none';
+                        }
+                    }
+                }
+            });
+        });
+
+        toggleColumnsButton.addEventListener('click', () => {
+            const columns = Array.from({ length: table.rows[0].cells.length - 1 }, (_, i) => i + 1);
+            columns.forEach(columnIndex => {
+                const cells = table.querySelectorAll(`td:nth-child(${columnIndex + 1}), th:nth-child(${columnIndex + 1})`);
+                cells.forEach(cell => {
+                    cell.style.display = cell.style.display === 'none' ? 'table-cell' : 'none';
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
+    
